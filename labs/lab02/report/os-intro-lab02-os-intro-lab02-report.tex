@@ -1,0 +1,585 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  english,
+  russian,
+  12pt,
+  a4paper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=gost-numeric,backend=biber,langhook=extras,autolang=other*]{biblatex}
+\addbibresource{bib/cite.bib}
+
+\usepackage[]{csquotes}
+
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\IfFileExists{plex-otf.sty}{
+  %% Full TeXlive
+  \usepackage[
+    % math,
+    RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},
+    DefaultFeatures={Ligatures=Common}
+  ]{plex-otf}
+  % \usepackage[Scale=MatchUppercase]{juliamono}
+}{
+  %% TinyTeX
+  \usepackage{libertine}
+}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Отчёт по лабораторной работе №2},
+  pdfauthor={Полина Вячеславовна Белакова},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Отчёт по лабораторной работе №2}
+\author{Полина Вячеславовна Белакова}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Содержание}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+
+\setstretch{1.5}
+\chapter{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+Изучить идеологию и применение средств контроля версий и приобрести
+навыки работы с git.
+
+\chapter{Задание}\label{ux437ux430ux434ux430ux43dux438ux435}
+
+\begin{itemize}
+\tightlist
+\item
+  Изучить идеологию и применение средств контроля версий.
+\item
+  Освоить умения по работе с git.
+\end{itemize}
+
+\chapter{Теоретическое
+введение}\label{ux442ux435ux43eux440ux435ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
+
+Системы контроля версий (Version Control System, VCS) применяются при
+работе нескольких человек над одним проектом. Обычно основное дерево
+проекта хранится в локальном или удалённом репозитории, к которому
+настроен доступ для участников проекта. При внесении изменений в
+содержание проекта система контроля версий позволяет их фиксировать,
+совмещать изменения, произведённые разными участниками проекта,
+производить откат к любой более ранней версии проекта, если это
+требуется. Среди классических VCS наиболее известны CVS, Subversion, а
+среди распределённых --- Git, Bazaar, Mercurial. Принципы их работы
+схожи, отличаются они в основном синтаксисом используемых в работе
+команд. Система контроля версий Git представляет собой набор программ
+командной строки. Доступ к ним можно получить из терминала посредством
+ввода команды git с различными опциями. Благодаря тому, что Git является
+распределённой системой контроля версий, резервную копию локального
+хранилища можно сделать простым копированием или архивацией.
+
+\chapter{Выполнение лабораторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+
+\section{Установка программного
+обеспечения}\label{ux443ux441ux442ux430ux43dux43eux432ux43aux430-ux43fux440ux43eux433ux440ux430ux43cux43cux43dux43eux433ux43e-ux43eux431ux435ux441ux43fux435ux447ux435ux43dux438ux44f}
+
+Установила git(рис.~\ref{fig-001}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/install_git1.png}
+
+}
+
+\caption{\label{fig-001}Установка git}
+
+\end{figure}%
+
+Установила gh (рис.~\ref{fig-002}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/install_gh2.png}
+
+}
+
+\caption{\label{fig-002}Установка gh}
+
+\end{figure}%
+
+\section{Базовая настройка
+git}\label{ux431ux430ux437ux43eux432ux430ux44f-ux43dux430ux441ux442ux440ux43eux439ux43aux430-git}
+
+Зададаю имя и email владельца репозитория (рис.~\ref{fig-003}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/git_config_user_email3.png}
+
+}
+
+\caption{\label{fig-003}Настройка имени и почты владельца репозитория}
+
+\end{figure}%
+
+Настраиваю utf-8 в выводе сообщений, верификацию и подписание коммитов
+git, зададаю имя начальной ветки, настраиваю параметры autocrlf,
+safecrlf Установила gh (рис.~\ref{fig-004}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/configi5.png}
+
+}
+
+\caption{\label{fig-004}Настройка git}
+
+\end{figure}%
+
+Создаю ключи ssh (рис.~\ref{fig-005}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/ssh6.png}
+
+}
+
+\caption{\label{fig-005}Создание ключа ssh}
+
+\end{figure}%
+
+Создаю ключи pgp(рис.~\ref{fig-006}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/pgp7.png}
+
+}
+
+\caption{\label{fig-006}Создание ключа pgp}
+
+\end{figure}%
+
+\section{Настройка
+github}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-github}
+
+Добавляю PGP ключ в GitHub(рис.~\ref{fig-007}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/gpg_list8.png}
+
+}
+
+\caption{\label{fig-007}Добавление ключа pgp}
+
+\end{figure}%
+
+Копирую сгенерированный PGP ключ в буфер обмена (рис.~\ref{fig-008}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/gpg_armore.png}
+
+}
+
+\caption{\label{fig-008}Копирование ключа pgp}
+
+\end{figure}%
+
+Перехожу в настройки GitHub, нажимаю на кнопку New GPG key и вставьте
+полученный ключ в поле ввода(\textbf{?@fig-009}).
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/add.png}.
+
+\section{Настройка автоматических подписей коммитов
+git}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux430ux432ux442ux43eux43cux430ux442ux438ux447ux435ux441ux43aux438ux445-ux43fux43eux434ux43fux438ux441ux435ux439-ux43aux43eux43cux43cux438ux442ux43eux432-git}
+
+Используя введёный email, указываю примениние Git при подписи коммитов
+(рис.~\ref{fig-010}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/git_configi.png}
+
+}
+
+\caption{\label{fig-010}Настраиваю автоматическую подпись коммитов}
+
+\end{figure}%
+
+\section{Настройка
+gh}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-gh}
+
+Авторизоввываюсь с помощью команды gh auth login (рис.~\ref{fig-011}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/auth_login.png}
+
+}
+
+\caption{\label{fig-011}Авторизация}
+
+\end{figure}%
+
+\section{Шаблон для рабочего
+пространства}\label{ux448ux430ux431ux43bux43eux43d-ux434ux43bux44f-ux440ux430ux431ux43eux447ux435ux433ux43e-ux43fux440ux43eux441ux442ux440ux430ux43dux441ux442ux432ux430}
+
+Создаю дерикторию (рис.~\ref{fig-012})и репозиторий курса на основе
+шаблона(рис.~\ref{fig-013}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/mkdir.png}
+
+}
+
+\caption{\label{fig-012}Создание директории}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/createclone.png}
+
+}
+
+\caption{\label{fig-013}Создание репозиторя и его клонирование}
+
+\end{figure}%
+
+\section{Настройка каталога
+курса}\label{ux43dux430ux441ux442ux440ux43eux439ux43aux430-ux43aux430ux442ux430ux43bux43eux433ux430-ux43aux443ux440ux441ux430}
+
+Перехожу в каталог курса, удаляю лишние файлы (рис.~\ref{fig-014}),
+создаю необходимые каталоги (рис.~\ref{fig-015})
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/cdlsrmls.png}
+
+}
+
+\caption{\label{fig-014}Удаление лишних файлов}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/echomake.png}
+
+}
+
+\caption{\label{fig-015}Создание необходимых каталогов}
+
+\end{figure}%
+
+Отправляю файлы на сервер (рис.~\ref{fig-016}), (рис.~\ref{fig-017}).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/addcommit.png}
+
+}
+
+\caption{\label{fig-016}Выполнение git add и git commit}
+
+\end{figure}%
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/git_push.png}
+
+}
+
+\caption{\label{fig-017}Выполнение git push}
+
+\end{figure}%
+
+\chapter{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+Была изучена идеология и применение средств контроля версий.Приобретены
+навыки работы с git.
+
+\chapter{Контрольные
+вопросы}\label{ux43aux43eux43dux442ux440ux43eux43bux44cux43dux44bux435-ux432ux43eux43fux440ux43eux441ux44b}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Что такое системы контроля версий (VCS) и для решения каких задач они
+  предназначаются? Система контроля версий (VCS) --- это программное
+  обеспечение для отслеживания изменений в файлах и координации работы
+  над ними. VCS хранит историю изменений, позволяет возвращаться к
+  предыдущим версиям и определять авторство каждой правки. Главные
+  задачи: обеспечение совместной работы нескольких человек над проектом,
+  защита от потери данных и возможность экспериментировать без риска
+  сломать основной код.
+\item
+  Объясните понятия : хранилище, commit, история, рабочая копия.
+  Хранилище (repository) --- это место, где VCS хранит все файлы проекта
+  и всю историю их изменений. Commit --- операция сохранения текущего
+  состояния файлов в хранилище, \enquote{снимок} проекта в определённый
+  момент времени. История --- цепочка последовательных commit'ов,
+  позволяющая проследить эволюцию проекта. Рабочая копия --- текущая
+  версия файлов на вашем компьютере, с которой вы непосредственно
+  работаете.
+\item
+  Чем отличаются централизованные и децентрализованные VCS? В
+  централизованных VCS (например, SVN) существует одно главное хранилище
+  на сервере, а разработчики получают только рабочие копии; при
+  недоступности сервера работа с историей невозможна. В
+  децентрализованных VCS (например, Git) каждый разработчик имеет полную
+  копию хранилища с историей на своём компьютере, что позволяет работать
+  автономно. Любая локальная копия в DVCS является полноценным резервным
+  хранилищем проекта.
+\item
+  Опишите действия с VCS при единоличной работе. При единоличной работе
+  сначала инициализируется пустое хранилище в папке проекта (git init).
+  Затем создаются и изменяются файлы, после чего они добавляются в
+  индекс (git add) и фиксируются (git commit) с пояснительным
+  сообщением. В любой момент можно посмотреть историю изменений (git
+  log) или вернуться к более ранней версии проекта.
+\item
+  Опишите порядок работы с общим хранилищем VCS. Работа начинается с
+  клонирования удалённого репозитория (git clone). Перед началом работы
+  и перед отправкой изменений необходимо загрузить актуальную версию от
+  коллег (git pull). После внесения изменений они фиксируются локально
+  (git commit), а затем отправляются в общее хранилище (git push). При
+  возникновении конфликтов их нужно разрешить вручную и сделать commit
+  слияния.
+\item
+  Каковы основные задачи git? Git обеспечивает полную историю изменений
+  проекта с возможностью навигации по ней. Он поддерживает нелинейную
+  разработку через мощную систему ветвления и гарантирует целостность
+  данных с помощью контрольных сумм. Git позволяет каждому разработчику
+  иметь полную копию репозитория и работать автономно, а также
+  предоставляет гибкие инструменты для управления версиями (теги,
+  ветки).
+\item
+  Назовите и дайте краткую характеристику командам git. git init создаёт
+  новый локальный репозиторий, а git clone копирует удалённый. git add
+  добавляет изменения в индекс, git commit фиксирует их в репозитории.
+  git push отправляет изменения на удалённый сервер, а git pull
+  загружает их оттуда. git branch и git checkout управляют ветками, git
+  merge сливает ветки, а git status и git log показывают состояние и
+  историю.
+\item
+  Приведите примеры использования с локальным и удалённым репозиториями.
+  Локально git init → создаём файлы → git add → git commit -m
+  'сообщение'' → git log для просмотра истории. С удалённым: git clone →
+  git pull для обновления → работаем → git commit → git push для
+  отправки изменений. Для новой задачи создаём ветку git checkout -b
+  feature, а после завершения отправляем её git push origin feature.
+\item
+  Что такое ветви (branches) и зачем они нужны? Ветка --- это
+  перемещаемый указатель на один из commit'ов, позволяющий вести
+  разработку изолированно от основной линии. Ветки нужны для
+  параллельной разработки новых функций без риска сломать стабильный
+  код. Они также используются для срочного исправления ошибок,
+  проведения экспериментов и организации работы нескольких разработчиков
+  над одним проектом.
+\item
+  Как и зачем игнорировать файлы при commit? Для игнорирования файлов
+  используется файл .gitignore, в котором перечисляются шаблоны имён
+  файлов и папок, не подлежащих версионированию. Игнорируют временные
+  файлы редакторов, скомпилированные бинарные файлы, конфиденциальные
+  данные и папки с зависимостями. Это позволяет держать репозиторий
+  чистым и лёгким, содержащим только исходный код и документацию.
+\end{enumerate}
+
+\chapter*{Список
+литературы}\label{ux441ux43fux438ux441ux43eux43a-ux43bux438ux442ux435ux440ux430ux442ux443ux440ux44b}
+\addcontentsline{toc}{chapter}{Список литературы}
+
+\printbibliography[heading=none]
+
+
+
+
+
+\end{document}
