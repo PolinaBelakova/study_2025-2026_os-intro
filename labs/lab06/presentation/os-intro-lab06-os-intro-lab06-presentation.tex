@@ -60,8 +60,12 @@
 \fi
 \usepackage{lmodern}
 
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -140,6 +144,10 @@
 \usepackage[bidi=basic,provide=*]{babel}
 \else
 \usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
 \fi
 % get rid of language-specific shorthands (see #6817):
 \let\LanguageShortHands\languageshorthands
@@ -239,7 +247,7 @@
 \title{Структура научной презентации}
 \subtitle{Простейший вариант}
 \author{Дмитрий Сергеевич Кулябов}
-\date{2026-03-07}
+\date{2026-03-21}
 
 \begin{document}
 \frame{\titlepage}
@@ -259,95 +267,33 @@
 \begin{frame}{Докладчик}
 \phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
 \begin{columns}[c]
-\begin{column}{0.7\linewidth}
 \begin{itemize}[<+->]
 \tightlist
 \item
-  Кулябов Дмитрий Сергеевич
+  Белакова Полина Вячеславовна
 \item
-  д.ф.-м.н., профессор
-\item
-  профессор кафедры теории вероятностей и кибербезопасности
+  студент
 \item
   Российский университет дружбы народов им. П. Лумумбы
 \item
-  \href{mailto:kulyabov-ds@rudn.ru}{\nolinkurl{kulyabov-ds@rudn.ru}}
-\item
-  \url{https://yamadharma.github.io/ru/}
+  \href{mailto:1032252589@rudn.ru}{\nolinkurl{1032252589@rudn.ru}}
 \end{itemize}
-\end{column}
-
-\begin{column}{0.3\linewidth}
-\pandocbounded{\includegraphics[keepaspectratio]{./image/kulyabov.jpg}}
-\end{column}
 \end{columns}
 \end{frame}
 
 \section{Вводная
 часть}\label{ux432ux432ux43eux434ux43dux430ux44f-ux447ux430ux441ux442ux44c}
 
-\begin{frame}{Актуальность}
-\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  Важно донести результаты своих исследований до окружающих
-\item
-  Научная презентация --- рабочий инструмент исследователя
-\item
-  Необходимо создавать презентацию быстро
-\item
-  Желательна минимизация усилий для создания презентации
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Объект и предмет исследования}
-\phantomsection\label{ux43eux431ux44aux435ux43aux442-ux438-ux43fux440ux435ux434ux43cux435ux442-ux438ux441ux441ux43bux435ux434ux43eux432ux430ux43dux438ux44f}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  Презентация как текст
-\item
-  Программное обеспечение для создания презентаций
-\item
-  Входные и выходные форматы презентаций
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Цели и задачи}
 \phantomsection\label{ux446ux435ux43bux438-ux438-ux437ux430ux434ux430ux447ux438}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  Создать шаблон презентации в Markdown
-\item
-  Описать алгоритм создания выходных форматов презентаций
-\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Материалы и методы}
-\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  Процессор \texttt{pandoc} для входного формата Markdown
-\item
-  Результирующие форматы
-
-  \begin{itemize}[<+->]
-  \tightlist
-  \item
-    \texttt{pdf}
-  \item
-    \texttt{html}
-  \end{itemize}
-\item
-  Автоматизация процесса создания: \texttt{Makefile}
-\end{itemize}
+\begin{frame}{Теоритическое введение}
+\phantomsection\label{ux442ux435ux43eux440ux438ux442ux438ux447ux435ux441ux43aux43eux435-ux432ux432ux435ux434ux435ux43dux438ux435}
 \end{frame}
 
-\section{Создание
-презентации}\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux438}
+\section{Выполнение лаболаторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux43bux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
 
 \begin{frame}{Процессор \texttt{pandoc}}
 \phantomsection\label{ux43fux440ux43eux446ux435ux441ux441ux43eux440-pandoc}
@@ -432,7 +378,7 @@
 презентации}\label{ux44dux43bux435ux43cux435ux43dux442ux44b-ux43fux440ux435ux437ux435ux43dux442ux430ux446ux438ux438}
 
 \begin{frame}{Актуальность}
-\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c-1}
+\phantomsection\label{ux430ux43aux442ux443ux430ux43bux44cux43dux43eux441ux442ux44c}
 \begin{itemize}[<+->]
 \tightlist
 \item
@@ -458,7 +404,7 @@
 \end{frame}
 
 \begin{frame}{Материалы и методы}
-\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b-1}
+\phantomsection\label{ux43cux430ux442ux435ux440ux438ux430ux43bux44b-ux438-ux43cux435ux442ux43eux434ux44b}
 \begin{itemize}[<+->]
 \tightlist
 \item
@@ -547,40 +493,6 @@
   содержал не более 5 элементов
 \item
   Можно группировать элементы так, чтобы визуально было не более 5 групп
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Общие рекомендации}
-\phantomsection\label{ux43eux431ux449ux438ux435-ux440ux435ux43aux43eux43cux435ux43dux434ux430ux446ux438ux438}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  На слайд выносится та информация, которая без зрительной опоры
-  воспринимается хуже
-\item
-  Слайды должны дополнять или обобщать содержание выступления или его
-  частей, а не дублировать его
-\item
-  Информация на слайдах должна быть изложена кратко, чётко и хорошо
-  структурирована
-\item
-  Слайд не должен быть перегружен графическими изображениями и текстом
-\item
-  Не злоупотребляйте анимацией и переходами
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Представление данных}
-\phantomsection\label{ux43fux440ux435ux434ux441ux442ux430ux432ux43bux435ux43dux438ux435-ux434ux430ux43dux43dux44bux445}
-\begin{itemize}[<+->]
-\tightlist
-\item
-  Лучше представить в виде схемы
-\item
-  Менее оптимально представить в виде рисунка, графика, таблицы
-\item
-  Текст используется, если все предыдущие способы отображения информации
-  не подошли
 \end{itemize}
 \end{frame}
 
